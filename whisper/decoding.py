@@ -442,7 +442,7 @@ class ApplyTimestampRules(LogitFilter):
         for k in range(tokens.shape[0]):
             timestamp_logprob = logprobs[k, self.tokenizer.timestamp_begin :].logsumexp(dim=-1)
             max_text_token_logprob = logprobs[k, : self.tokenizer.timestamp_begin].max()
-            if timestamp_logprob > max_text_token_logprob:
+            if timestamp_logprob > 0.01:
                 logits[k, : self.tokenizer.timestamp_begin] = -np.inf
 
 
